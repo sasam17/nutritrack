@@ -15,7 +15,23 @@ Current identifiers, read from the v2.2 APK:
 | Hosting URL | `nutritrack-2bf22.web.app` | `himalo.web.app` (new site) or a custom domain |
 | APK asset name | `nutritrack.apk` | `himalo.apk` |
 
+## Quick path (about 15 minutes, no Claude needed)
+
+1. **Code:** in your Android project folder, commit your work first, then run:
+   ```
+   git clone https://github.com/sasam17/nutritrack ../himalo-branding
+   python3 ../himalo-branding/branding/rebrand_app.py           # preview
+   python3 ../himalo-branding/branding/rebrand_app.py --apply   # do it
+   ```
+   It covers every item in section 1 below. In Android Studio, run *File → Sync Project with Gradle Files*.
+2. **Firebase:** do steps 1–4 of section 2 (rename the project, add the Android app `app.himalo` with your SHA-1/SHA-256, download `google-services.json` into `app/`). Build and install the app, and check that sign-in works.
+3. **Release:** attach the APK as `himalo.apk` (the script renames the updater's asset name) and a copy named `nutritrack.apk` for old installs.
+4. The remaining Firebase, Play and GitHub items below can wait until you're ready to launch.
+
 ## 1. Android app code
+
+`branding/rebrand_app.py` does all of this automatically:
+
 
 1. Copy `branding/android/res/*` into `app/src/main/res/`, overwriting the existing `mipmap-*` folders. Delete the old `nutritrack_logo` drawable and point its references at `@drawable/himalo_logo`.
 2. `app/build.gradle(.kts)`: set `applicationId = "app.himalo"` and `namespace = "app.himalo"`.
